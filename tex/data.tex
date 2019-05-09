@@ -1,0 +1,23 @@
+\section{Data}
+
+Our dataset is a labeled subset of Amazon review data made available by Julian McAuley at \url{http://jmcauley.ucsd.edu/data/amazon/} \cite{he2016ups, mcauley2015image}.
+The unlabeled dataset includes reviews for products across a variety of 24 Amazon departments including Books, Electronics, Movies and TV, CDs and Vinyl, Clothing, Shoes and Jewelry, Home and Kitchen, Kindle Store, etc.
+The unlabeled dataset includes the fields:
+\begin{itemize}
+\item \texttt{reviewerID}, a unique identifying string that identifies the user who left a review
+\item \texttt{asin}, a unique identifier for the product being reviewed;
+\item \texttt{reviewerName}, the username of the reviewer;
+\item \texttt{helpful}, a two-element tuple describing the number of users who marked the review ``helpful'' and the number of users who marked the review as ``not helpful;''
+\item \texttt{reviewText}, the text of the review;
+\item \texttt{overall}, the rating out of five stars provided by the reviewer;
+\item \texttt{summary}, the title of the review;
+\item \texttt{unixReviewTime} and \texttt{reviewTime}, timestamps of the review.
+\end{itemize}
+
+
+In addition, Julian McAuley provides metadata that describes characteristics of products being reviewed including text description, price, sales-rank, brand info, and co-purchasing links (i.e. related products that customers bought, related products that customers viewed).
+
+Our labeled subset contains 1991 reviews drawn from the electronics department.
+In addition to the fields provided above, reviews in our labeled subset include the binary label \texttt{helpful}/\texttt{not helpful}.
+This label was assigned manually by Jie and collaborators based on whether the review contained relevant, specific information describing the product and its performance (i.e. providing specific reasons \textit{why} they assigned it a particular overall review.
+Our labeled dataset is formatted as a single, tidy JSON file, so working with the dataset in modern data analysis frameworks (e.g. pandas) was be straightforward.

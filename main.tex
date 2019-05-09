@@ -1,0 +1,62 @@
+\documentclass[a4paper]{article}
+
+\usepackage{datetime}
+\newdate{date}{4}{05}{2018}
+\date{\displaydate{date}}
+
+
+%% Language and font encodings
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+
+%% Sets page size and margins
+\usepackage[a4paper,top=1in,bottom=1in,left=1in,right=1in,marginparwidth=1in]{geometry}
+
+%% Useful packages
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{subcaption}
+
+\usepackage{collcell}
+\usepackage{hhline}
+\usepackage{pgf}
+\usepackage{multirow}
+\newcolumntype{E}{>{\centering\arraybackslash} m{1cm}}  %Cell width
+\newcolumntype{J}{>{\centering\arraybackslash} m{0cm}}  %Cell width
+\newcommand*\rot{\rotatebox{90}}
+
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+\title{CSE 802 Project}
+\author{Matthew Andres Moreno, Angela Morrison, Jie Wan}
+
+\begin{document}
+\maketitle
+
+\vspace{9cm}
+
+\input{tex/abstract.tex}
+
+\newpage
+
+\input{tex/introduction.tex}
+\input{tex/problem.tex}
+\input{tex/motivation.tex}
+\input{tex/data.tex}
+\input{tex/methods.tex}
+\input{tex/results.tex}
+\input{tex/conclusion.tex}
+\input{tex/acknowledgements.tex}
+
+\bibliographystyle{acm}
+\bibliography{sample}
+
+\end{document}

@@ -1,0 +1,53 @@
+\begin{figure}[!htbp]
+\begin{subfigure}[b]{0.5\textwidth}
+\begin{center}
+\newcommand\items{2}   %Number of classes
+\noindent\begin{tabular}{cc*{\items}{|E}|J}
+\multicolumn{1}{c}{} &\multicolumn{1}{c}{} &\multicolumn{\items}{c}{Predicted} \\
+\multicolumn{1}{c}{} &
+\multicolumn{1}{c|}{} &
+\multicolumn{1}{c|}{} &
+\multicolumn{1}{c|}{NOT} \\
+\multicolumn{1}{c}{} &
+\multicolumn{1}{c|}{} &
+\multicolumn{1}{c|}{HELPFUL} &
+\multicolumn{1}{c|}{HELPFUL} \\
+
+\hhline{~-*{\items}{|-}|}
+\multirow{\items}{*}{\rotatebox{90}{Actual}}
+& HELPFUL & 123 & 39 & \\[0.6cm]
+\hhline{~-*{\items}{|-}|}
+& NOT HELPFUL & 23 & 15 & \\[0.6cm]
+\hhline{~-*{\items}{|-}|}
+\end{tabular}
+\caption{``dirty'' dataset}
+\end{center}
+\end{subfigure}%
+\begin{subfigure}[b]{0.5\textwidth}
+\begin{center}
+\newcommand\items{2}   %Number of classes
+\noindent\begin{tabular}{cc*{\items}{|E}|J}
+\multicolumn{1}{c}{} &\multicolumn{1}{c}{} &\multicolumn{\items}{c}{Predicted} \\
+\multicolumn{1}{c}{} &
+\multicolumn{1}{c|}{} &
+\multicolumn{1}{c|}{} &
+\multicolumn{1}{c|}{NOT} \\
+\multicolumn{1}{c}{} &
+\multicolumn{1}{c|}{} &
+\multicolumn{1}{c|}{HELPFUL} &
+\multicolumn{1}{c|}{HELPFUL} \\
+\hhline{~-*{\items}{|-}|}
+\multirow{\items}{*}{\rotatebox{90}{Actual}}
+& HELPFUL & 498 & 227 & \\[0.6cm]
+\hhline{~-*{\items}{|-}|}
+& NOT HELPFUL & 170 & 101 & \\[0.6cm]
+\hhline{~-*{\items}{|-}|}
+\end{tabular}
+\caption{``clean'' dataset}
+\end{center}
+\end{subfigure}
+\caption{
+Test data confusion matrices of 21 nearest neighbor classification on ``dirty'' and ``clean'' datasets. 
+}
+\label{fig:confusion_21nn}
+\end{figure}

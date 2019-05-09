@@ -1,0 +1,59 @@
+\section{Methods}
+We used machine learning algorithm to analyze review and adjusted our model automatically as we classified more and more review data. To achieve that, we need to do natural language processing, build a classifier model and filter features by correctness and error rate. We focused on training a Bayes classifier as well as the Kernel density which we then tested on some portions of the data.  These will be further discussed in the Results section.
+
+\subsection{Natural Language Processing - Nature Language Toolkit}
+The NLTK library provides many algorithms and supports many languages, so extending the functionality of ACRA is as simple as swapping in an algorithm to deal with a different language. A library is used over an API to reduce the number of external calls from our system. Once features are extracted from user reviews, we use the bag-of-words algorithm to extract the desired feature information. 
+
+\subsection{Bag of Words}
+Bag-of-words model is a simplifying representation used in natural language processing and information retrieval. A product review is represented as the bag of its words, disregarding grammar and even word order but keeping number of replications. Bag-of-words is commonly used in methods of document classification where the frequency of each word is used as a feature for training a classifier. This model allowed us to creature our feature vectors used for classification. 
+
+\subsection{Feature Selection}
+There are a lot of features that can be used to classify a product review, such as the length of the review, readability using ARI(Automated Readability Index), and semantic patterns using TF-IDF(term frequency-inverse document frequency). In addition, our review data also came with the number of stars which represents if it is a positive or negative review, and vote of helpful. We used the frequency of each word in the review as our set of features. From there we trained our classifiers, and compared the error rates between classifiers.
+
+\subsection{Data Pre-processing}
+In order to generate features we will vectorize review text based on the idea of bag-of-words model. We will also use the NLTK library. The pre-processing methods that we are going to employ are as follows:
+
+\begin{enumerate}
+	\item \textbf{Stemming} - Stemming means omitting stemming suffixes. Therefore, words such as "running" and "running" will be represented as "running." This allows our algorithm to more accurately find trends in the “meaning” of sentences (for example, “Sun is shining” and “Sun shine” will be more accurately associated with the same meaning), it will reduce curse of dimensionality by reducing words which repeat similar meaning.
+	\item \textbf{Tokenizing} - Splits sentences up into single words. This is needed to generate our bag-of-words model to vectorize review text. First, we scan our all review text for one specific category and record the frequency of word. Then we use the frequency of word to replace review text and construct a integer vector to generate our bag-of-words model and use it as our features.
+	\item \textbf{Remove Stop Words} - This moves words such as "the" "a" and "it" as shown in the English stop words corpus. We used NLTK library to remove stop words. While we are replacing review text with frequency number, we remove stops words from review text. Sentences without these words are hard to understand, and ideally they should be kept, but it is a trade-off for algorithm efficiency and reducing data point noiese. We would like to prevent a review with more stop words.
+	\item \textbf{ngrams} - After splitting sentence, we make groups of words that are 'n' long. E.g the 2-grams for the sentence "The shaggy dog" are [The, shaggy], [The, dog] and [shaggy, dog]. Weving more than that is computationally expensive for my computer. will stick to 2-grams and 1-grams for now. Due to the computationally expensive, we used 1-grams.\\
+\end{enumerate}
+
+\subsection{LDA Projection}
+
+We used LDA (Linear Discriminant Analysis) to reduce the dimensionality of our data.
+The raw bag-of-words has hundreds of features, each feature being a count of the number of occurrences of a particular word in a review.
+We chose LDA analysis over PCA (Primary Component Analysis) because LDA analysis explicitly accounts for data labels while PCA analysis does not.
+Thus, LDA analysis can often yield projections where data from different classes are more distinctly segregated.
+We chose to project to a two-dimensional space in order to be able to visualize the results of the projection.
+Figures \ref{fig:clean_boundary} and \ref{fig:dirty_boundary} show the results of this projection on the ``clean'' and ``dirty'' datasets, respectively.
+
+\subsection{Bayesian Classification}
+
+To perform Bayes classification on LDA-transformed reviews, we modeled data as.
+The prior probability of a helpful review was approximated as the proportion of the dataset marked helpful and the prior probability of the prior probability of a non-helpful review was approximated as the proportion of the dataset marked helpful.
+Priors were calculated as the proportion of the dataset 
+We modeled the distributions of helpful and non-helpful reviews in the LDA-transformed space as multivariate Gaussian.
+We solved for the parameters of these distributions using maximum likelihood estimation.
+
+\subsection{KNN Classification}
+
+We wanted to compare Bayesian classification, a parametric method, with a non-parametric method.
+So, we performed K-Nearest Neighbor (KNN) classification on our LDA-transformed reviews as well.
+We employed the Matlab \texttt{fitcknn} function for this task.
+In KNN classification, a data point is classified as the class that is most common among its K nearest neighbors in the training data set.
+The distance measure used to determine the K nearest neighbors is Euclidean distance.
+We tested the following values for K: 1,5,9,13,17, and 21.
+
+\subsection{Test/Train Split}
+
+In order to prevent the phenomenon of overfitting to training data from improperly skewing our reported classification performance upwards, we tested our classifiers on data that were not used to train our classifiers (i.e., solve for LDA projection, solve for Gaussian distribution parameters, or serve as candidate neighbors for the KNN process).
+In order to ensure that the train and test subsets were both representative of the overall dataset, we accounted for data labels so that the train and test subsets both had the same proportion of helpful and nonhelpful reviews as the overall dataset. 
+We used a 50-50 test/train split on the ``clean'' dataset.
+Due to the greater number of features in the ``dirty'' dataset, we ran into numerical issues solving for the LDA projection with only half of the dataset as training data.
+To overcome these issues, we used a 90-10 test/train split on the ``dirty'' dataset. 
+This means that the classifiers trained on the ``dirty'' data had a larger training dataset so might have been unfairly advantaged in this regard.
+In addition, due to implementation issues, we were forced to use two-review smaller ``dirty'' test and train sets for the K-NN classifiers.
+We excluded one helpful and one not helpful review from each set to accomplish this.
+Ideally, in future work we would also use the same 90-10 test/train split on the ``clean'' dataset and the Bayes/K-NN classifiers in order to put all classifiers using all datasets on completely even footing.
